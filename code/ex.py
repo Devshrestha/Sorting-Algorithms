@@ -1,3 +1,5 @@
-from graphic import *
-
-display_loop([34,78,12,57,9,80],[0,2])
+a=9.0
+check=type(a)
+print(check)
+if 9 ==9.00:
+    print('may')

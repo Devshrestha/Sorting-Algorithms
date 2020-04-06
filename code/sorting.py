@@ -1,13 +1,10 @@
 from graphic import display_loop
 
-#a=[300,-10,6,-15,8,-200]*2
-a=[5,57,23,22,67,43,12,34,10,59,-3]*5
+
 class sort:
-    def __init__(self,l):
+    
+    def bubble_sort(self,l):
         self.the_list=l
-
-    def bubble_sort(self):
-
         for _ in range(len(self.the_list)-1):   
             for i in range(1,len(self.the_list)):
                 if self.the_list[i-1]>self.the_list[i]:
@@ -49,6 +46,3 @@ class sort:
                 k+=1
                 j+=1
                 display_loop(self.the_list,[k,j])
-
-do=sort(a)
-print(do.bubble_sort())

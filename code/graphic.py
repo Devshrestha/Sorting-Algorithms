@@ -20,6 +20,7 @@ display_width=1000
 screen = pygame.display.set_mode((display_width,display_height))
 pygame.display.set_caption('Sorting Algorithm')
 clock=pygame.time.Clock()
+    
 
 def text_objects(text,font):
     textSurface = font.render(text, True, dark_grey)
@@ -84,6 +85,8 @@ def bars(array,change):
 
 def display_loop(numbers,a):
     '''The loop governs the repeated dispaly of updates in frames'''
+
+    
     while True:
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
@@ -98,3 +101,4 @@ def display_loop(numbers,a):
         clock.tick(60)
         time.sleep(0.05)
         return
+
