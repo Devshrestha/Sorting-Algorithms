@@ -1,4 +1,4 @@
-from graphic import display_loop
+from graphic import outer
 
 
 class sort:
@@ -11,7 +11,7 @@ class sort:
                     temp=self.the_list[i-1]
                     self.the_list[i-1]=self.the_list[i]
                     self.the_list[i]=temp
-                display_loop(self.the_list,[i-1,i])
+                outer(self.the_list,[i-1,i])
         return self.the_list
     
     def merge_sort(self,array):
@@ -46,3 +46,4 @@ class sort:
                 k+=1
                 j+=1
                 display_loop(self.the_list,[k,j])
+

@@ -1,0 +1,35 @@
+[33mcommit b86d168056c06d83dae757a566fae926c357cb29[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m
+Author: Devansh shrestha <shrestha71devansh@gmail.com>
+Date:   Mon Apr 6 17:18:23 2020 +0530
+
+    changed py files directory.added a way in tkinter to input array
+
+[33mcommit c357a13cf106bad1c243fae148c9454a67ac5bac[m
+Author: Devansh shrestha <shrestha71devansh@gmail.com>
+Date:   Sun Apr 5 16:38:53 2020 +0530
+
+    started working on gui for input
+
+[33mcommit 53a3ce8055620431b66dc467206d8c5856dd4420[m
+Author: Devansh shrestha <shrestha71devansh@gmail.com>
+Date:   Fri Apr 3 18:57:50 2020 +0530
+
+    sorting file contain function for multiple sorting algorithm added bubble_sort
+
+[33mcommit b43edeb1efdd135ce1445d66185281c04f8f3935[m
+Author: Devansh shrestha <shrestha71devansh@gmail.com>
+Date:   Fri Apr 3 18:56:15 2020 +0530
+
+    adding feature for negative numbers
+
+[33mcommit 0287f1d5cb503dad68aae0f75a715acb8e44d100[m
+Author: Devansh shrestha <shrestha71devansh@gmail.com>
+Date:   Fri Apr 3 16:17:50 2020 +0530
+
+    Adding graphic file display graphs using pygame
+
+[33mcommit f370e9b7dc374e8fe732962319ee851bf67eb31f[m
+Author: Devshrestha <42374252+Devshrestha@users.noreply.github.com>
+Date:   Fri Apr 3 13:39:07 2020 +0530
+
+    Initial commit
