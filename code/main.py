@@ -9,7 +9,7 @@ arr=[]
 i=0
 j=1
 d=1
-en=True
+en=1
 
 
 root= gui.Tk()
@@ -19,15 +19,25 @@ v=None
 
 
 def run_manual():
+    global en,arr
+    if en==0:
+        arr=[]
+        en=1
+
     text=ttk.Label(text='Enter elments')
     text.grid(row=1,column=1)
     arry_entry(i)
+    
     confirm=ttk.Button(text="Proceed",command=last_entry)
     confirm.grid(row=10+d+j,column=1)
 
 
 def run_random():
-    
+    global en,arr
+    if en==0:
+        arr=[]
+
+    en=0
 
 
     def generate():
