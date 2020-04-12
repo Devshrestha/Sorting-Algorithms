@@ -1,10 +1,13 @@
 from graphic import outer
+#a=[23,-45,75,68,91,56,-67,34,90,100,104,198,9]
 
 
 class sort:
-    
-    def bubble_sort(self,l):
+    def __init__(self,l):
         self.the_list=l
+        self.represent=l
+    
+    def bubble_sort(self):
         for _ in range(len(self.the_list)-1):   
             for i in range(1,len(self.the_list)):
                 if self.the_list[i-1]>self.the_list[i]:
@@ -15,35 +18,54 @@ class sort:
         return self.the_list
     
     def merge_sort(self,array):
-        self.the_list=array
-        if len(self.the_list)>1:
-            mid = len(self.the_list)//2
-            L=self.the_list[:mid]
-            R=self.the_list[mid:]
+        the_list=array
+        if len(the_list)>1:
+            mid = len(the_list)//2
+            L=the_list[:mid]
+            R=the_list[mid:]
             self.merge_sort(L)
             self.merge_sort(R)
             i=j=k=0
             while i<len(L) and j<len(R):
                 if L[i]<R[j]:
-                    self.the_list[k]=L[i]
+                    the_list[k]=L[i]
+                    self.represent[k]=L[i]
                     k+=1
                     i+=1
-                    display_loop(self.the_list,[k,i])
+                    outer(self.represent,[k,i])
+                    
                 else:
-                    self.the_list[k]=R[j]
+                    the_list[k]=R[j]
+                    self.represent[k]=R[j]
                     k+=1
                     j+=1
-                    display_loop(self.the_list,[k,j])
+                    outer(self.represent,[k,j])
+
+                    
                 
             while i<len(L):
-                self.the_list[k]=L[i]
+                the_list[k]=L[i]
+                self.represent[k]=L[i]
                 k+=1
                 i+=1
-                display_loop(self.the_list,[k,i])
+                outer(self.represent,[k,i])
+                
 
             while j<len(R):
-                self.the_list[k]=R[j]
+                the_list[k]=R[j]
+                self.represent[k]=R[j]
                 k+=1
                 j+=1
-                display_loop(self.the_list,[k,j])
+                outer(self.represent,[k,j])
+        
+    def selection(self):
+        for i in range(len(self.the_list)):
+            min_inx=i
+            for j in range(i+1,len(self.the_list)):
+                if self.the_list[min_inx]>self.the_list[j]:
+                    min_inx=j
+            
+            self.the_list[min_inx],self.the_list[i]=self.the_list[i],self.the_list[min_inx]
+            outer(self.the_list,(min_inx,i))
+        return self.the_list     
 
