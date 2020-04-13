@@ -105,3 +105,18 @@ def outer(numbers,a):
             time.sleep(0.1)
             return
     display_loop()
+
+def exit():
+    x=0
+    
+
+    for event in pygame.event.get():
+        if event.type==pygame.Quit:
+            pygame.quit()
+        x+=1
+        if x>1000:
+            break
+
+    time.sleep(5)
+    pygame.quit()
+    

@@ -1,4 +1,4 @@
-from graphic import outer
+from graphic import outer,exit
 #a=[23,-45,75,68,91,56,-67,34,90,100,104,198,9]
 
 
@@ -15,6 +15,7 @@ class sort:
                     self.the_list[i-1]=self.the_list[i]
                     self.the_list[i]=temp
                 outer(self.the_list,[i-1,i])
+        exit()
         return self.the_list
     
     def merge_sort(self,array):
@@ -69,3 +70,17 @@ class sort:
             outer(self.the_list,(min_inx,i))
         return self.the_list     
 
+    def insertion(self):
+
+        for i in range(1,len(self.the_list)):
+
+            key=self.the_list[i]
+            j=i-1
+            
+            while key<self.the_list[j] and j>=0:
+                self.the_list[j+1]=self.the_list[j]
+                outer(self.the_list,(key,j))
+                j-=1
+            self.the_list[j+1]=key
+            
+        return self.the_list

@@ -10,51 +10,96 @@ i=0
 j=1
 d=1
 en=1
+enter=0
 
 
-
+frame_width=700
+frame_height=700
 v=None
 root= gui.Tk()
-root.geometry("800x1000")
+root.geometry("700x750")
 root.resizable(width=False,height=True)
 
 frame=ttk.Frame(root)
-frame.configure(width=400,height=400)
+frame.configure(width=frame_width,height=frame_height/3)
+frame.grid(row=1,columnspan=2)
+frame2=ttk.Frame(root)
+frame2.configure(width=frame_width,height=frame_height/3)
+frame2.grid(row=2,columnspan=2)
+frame3=ttk.Frame(root)
+frame3.configure(width=frame_width,height=frame_height/3)
+frame3.grid(row=3,columnspan=2)
 BasicLooks=ttk.Style()
 BasicLooks.theme_use('alt')
-frame.grid(row=1)
+
 
 #custom-rizing the looks
 look_buttons=ttk.Style()
 look_buttons.configure('num.TButton',relief='flat',font=('callbri',13,'bold'),bordercolor='black',ipading=0,foreground='black',background='#e6ffff', borderwidth=1, focusthickness=1, focuscolor='none')
 look_buttons.map('num.TButton',foreground=[('pressed', 'black'), ('active', 'black')],
     background=[('pressed', '!disabled', '#00ffff'), ('active', '#80ffff')])
+look_sort_butt=ttk.Style()
+look_sort_butt.configure('sort.TButton',relief='flat',font=('callbri',13,'bold'),bordercolor='black',padding=0,ipading=0,foreground='black',background='#e6ffff', borderwidth=1, focusthickness=1, focuscolor='none')
+look_sort_butt.map('sort.TButton',foreground=[('pressed', 'black'), ('active', 'black')],
+    background=[('pressed', '!disabled', '#00ffff'), ('active', 'red')])
 look_text1=ttk.Style()
 look_text1.configure('text1.TRadiobutton',relief='flat',font=('callbri',20,'bold'),bordercolor='black',ipading=20,foreground='black',background='#e6ffff', borderwidth=1, focusthickness=1, focuscolor='none')
 look_text2=ttk.Style()
-look_text2.configure('text2.TLabel',relief='flat',font=('callbri',15,'bold'),bordercolor='black',ipading=20,padding=20,foreground='black',background='grey', borderwidth=1, focusthickness=1, focuscolor='none')
+look_text2.configure('text2.TLabel',relief='flat',font=('callbri',15,'bold'),bordercolor='black',ipading=20,padding=20,foreground='black', borderwidth=1, focusthickness=1, focuscolor='none')
 look_box=ttk.Style()
-look_box.configure('box.TEntry',width=10)
+look_box.configure('box.TEntry',width=8)
+look_gen=ttk.Style()
+look_gen.configure('text3.TLabel',relief='flat',font=('callbri',10,'bold'),bordercolor='black',ipading=20,padding=20,foreground='black', borderwidth=1, focusthickness=1, focuscolor='none')
 
 
 
 def run_manual():
-    frame.update()
+    global enter,frame,frame2,frame3
+    if enter==1:
+        frame.destroy()
+        frame2.destroy()
+        frame3.destroy()
+        frame=ttk.Frame(root)
+        frame.configure(width=frame_width,height=frame_height/3)
+        frame.grid(row=1,columnspan=2)
+        frame2=ttk.Frame(root)
+        frame2.configure(width=frame_width,height=frame_height/3)
+        frame2.grid(row=2,columnspan=2)
+        frame3=ttk.Frame(root)
+        frame3.configure(width=frame_width,height=frame_height/3)
+        frame3.grid(row=3,columnspan=2)
+    enter=1
+    #frame.update()
     global en,arr
     if en==0:
         arr=[]
         en=1
 
     text=ttk.Label(frame,text='Enter elments',style='text2.TLabel')
-    text.grid(row=1,column=1)
+    text.grid(row=0,column=1,sticky=gui.N+gui.W)
     arry_entry(i)
     
-    confirm=ttk.Button(frame,text="Proceed",style='num.TButton',command=last_entry)
+    confirm=ttk.Button(frame2,text="Next",style='num.TButton',command=last_entry)
+    confirm.configure(width=7)
     confirm.grid(row=10+d+j,column=1)
 
 
 def run_random():
-    global en,arr
+    global en,arr,enter,frame,frame2,frame3
+    if enter==1:
+        frame.destroy()
+        frame2.destroy()
+        frame3.destroy()
+        frame=ttk.Frame(root)
+        frame.configure(width=frame_width,height=frame_height/3)
+        frame.grid(row=1,columnspan=2)
+        frame2=ttk.Frame(root)
+        frame2.configure(width=frame_width,height=frame_height/3)
+        frame2.grid(row=2,columnspan=2)
+        frame3=ttk.Frame(root)
+        frame3.configure(width=frame_width,height=frame_height/3)
+        frame3.grid(row=3,columnspan=2)
+    enter=1
     if en==0:
         arr=[]
 
@@ -84,26 +129,26 @@ def run_random():
                 j+=1
             pos=pos-((j-1)*10)
               
-            r[i]=ttk.Label(frame,text=arr[i]).grid(row=3+j,column=pos)
+            r[i]=ttk.Label(frame2,style='text3.TLabel',text=arr[i]).grid(row=0+j,column=pos)
         butt()
         
         
              
-    no_label=ttk.Label(frame,text='No of elements',style='text2.TLabel').grid(row=1,column=1)
-    no=ttk.Entry(justify='center',width=7,style='box.TEntry',font = ('courier', 15, 'bold'))
+    no_label=ttk.Label(frame,text='No of elements',style='text2.TLabel').grid(row=0,column=1)
+    no=ttk.Entry(frame,justify='center',width=7,style='box.TEntry',font = ('courier', 15, 'bold'))
     no.focus()
-    no.grid(row=1,column=2)
+    no.grid(row=0,column=2)
     
-    first_label=ttk.Label(frame,text=' First element  ',style='text2.TLabel').grid(row=2,column=1)
-    first=ttk.Entry(justify='center',width=7,style='box.TEntry',font = ('courier', 15, 'bold'))
-    first.grid(row=2,column=2)
+    first_label=ttk.Label(frame,text=' First element  ',style='text2.TLabel').grid(row=1,column=1)
+    first=ttk.Entry(frame,justify='center',width=7,style='box.TEntry',font = ('courier', 15, 'bold'))
+    first.grid(row=1,column=2)
     #no.bind("<Return>",first.set_focus)
 
     
 
-    last_label=ttk.Label(frame,text='  Last element  ',style='text2.TLabel').grid(row=3,column=1)
-    last=ttk.Entry(justify='center',width=7,style='box.TEntry',font = ('courier', 15, 'bold'))
-    last.grid(row=3,column=2)
+    last_label=ttk.Label(frame,text='  Last element  ',style='text2.TLabel').grid(row=2,column=1)
+    last=ttk.Entry(frame,justify='center',width=7,style='box.TEntry',font = ('courier', 15, 'bold'))
+    last.grid(row=2,column=2)
     
     gen=ttk.Button(frame,text="Generate",style='num.TButton',command=generate)
     gen.grid(row=10+j+d,column=1)
@@ -138,7 +183,7 @@ def arry_entry(i):
 
     if en:
         a.append(None)
-        a[i]=ttk.Entry(frame,style='box.TEntry',justify='center',width=5,font = ('courier', 15, 'bold'))
+        a[i]=ttk.Entry(frame2,style='box.TEntry',justify='center',width=5,font = ('courier', 15, 'bold'))
         #for printing only ten boxes in a row
         pos=i+1
         if (pos/(d*10))>1:
@@ -154,14 +199,17 @@ def arry_entry(i):
 
 
 def butt():
-    bubble=ttk.Button(text="Bubble-Sort",style='num.TButton',command=lambda:s.bubble_sort())
-    bubble.grid(row=11+d+j,column=1)
+    bubble=ttk.Button(frame3,text="Bubble-Sort",style='sort.TButton',command=lambda:s.bubble_sort())
+    bubble.grid(row=1,column=1)
 
-    merge=ttk.Button(text="Merge-Sort",style='num.TButton',command=lambda:s.merge_sort(arr))
-    merge.grid(row=11+d+j,column=2)
+    merge=ttk.Button(frame3,text="Merge-Sort",style='sort.TButton',command=lambda:s.merge_sort(arr))
+    merge.grid(row=1,column=2)
 
-    selection=ttk.Button(text="selection-Sort",style='num.TButton',command=lambda:s.selection())
-    selection.grid(row=11+d+j,column=3)
+    selection=ttk.Button(frame3,text="selection-Sort",style='sort.TButton',command=lambda:s.selection())
+    selection.grid(row=1,column=3)
+
+    insertion=ttk.Button(frame3,text="insertion-Sort",style='sort.TButton',command=lambda:s.insertion())
+    insertion.grid(row=1,column=4)
 
 s=sort(arr)
 gui.mainloop()
