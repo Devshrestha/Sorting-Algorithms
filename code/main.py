@@ -262,5 +262,8 @@ def butt():
     insertion=ttk.Button(frame3,text="Insertion-Sort",style='sort.TButton',command=lambda:buttonpress(s.insertion))
     insertion.grid(row=1,column=4,padx=10,pady=10)
 
+    shell=ttk.Button(frame3,text="Shell-Sort",style='sort.TButton',command=lambda:buttonpress(s.shell_sort))
+    shell.grid(row=2,column=1,padx=10,pady=10)
+
 s=sort(arr)
 gui.mainloop()

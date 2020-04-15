@@ -96,3 +96,23 @@ class sort:
         
         exit()
         return self.the_list
+    
+    def shell_sort(self):
+        arr=self.the_list
+        n=len(arr)
+        gap=n//2
+
+        while gap > 0: 
+  
+            for i in range(gap,n):  
+                temp = arr[i] 
+                j = i 
+                while  j >= gap and arr[j-gap] >temp: 
+                    arr[j] = arr[j-gap] 
+                    j -= gap 
+                arr[j] = temp 
+                outer(arr,(j,i))
+            gap //= 2
+        
+        exit()
+        return arr
