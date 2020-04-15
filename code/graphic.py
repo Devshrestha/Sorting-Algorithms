@@ -3,7 +3,7 @@ import time
 pygame.font.init()
 def outer(numbers,a):
     
-    
+    pygame.font.init()
     #color init
     black=(0,0,0)
     white=(255,255,255)
@@ -48,7 +48,7 @@ def outer(numbers,a):
             message_font=pygame.font.SysFont('arial.ttf',20)
         else:
             a=3
-            message_font=pygame.font.SysFont('Arial.ttf',15)
+            message_font=pygame.font.SysFont('arial.ttf',15)
 
 
         try:
@@ -111,12 +111,12 @@ def exit():
     
 
     for event in pygame.event.get():
-        if event.type==pygame.Quit:
+        if event.type==pygame.QUIT:
             pygame.quit()
         x+=1
         if x>1000:
             break
 
-    time.sleep(5)
+    time.sleep(1)
     pygame.quit()
     

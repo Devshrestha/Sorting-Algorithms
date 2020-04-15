@@ -6,6 +6,8 @@ class sort:
     def __init__(self,l):
         self.the_list=l
         self.represent=l
+        self.counter=0
+        self.length=len(l)
     
     def bubble_sort(self):
         for _ in range(len(self.the_list)-1):   
@@ -20,6 +22,10 @@ class sort:
     
     def merge_sort(self,array):
         the_list=array
+        if self.counter==0:
+            self.counter=1
+            self.length=len(array)
+
         if len(the_list)>1:
             mid = len(the_list)//2
             L=the_list[:mid]
@@ -58,6 +64,10 @@ class sort:
                 k+=1
                 j+=1
                 outer(self.represent,[k,j])
+        if self.length==len(array):
+            self.counter=0
+            exit()
+
         
     def selection(self):
         for i in range(len(self.the_list)):
@@ -68,6 +78,7 @@ class sort:
             
             self.the_list[min_inx],self.the_list[i]=self.the_list[i],self.the_list[min_inx]
             outer(self.the_list,(min_inx,i))
+        exit()
         return self.the_list     
 
     def insertion(self):
@@ -82,5 +93,6 @@ class sort:
                 outer(self.the_list,(key,j))
                 j-=1
             self.the_list[j+1]=key
-            
+        
+        exit()
         return self.the_list

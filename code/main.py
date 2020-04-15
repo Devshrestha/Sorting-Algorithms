@@ -11,13 +11,15 @@ j=1
 d=1
 en=1
 enter=0
-
+prev=[]
+value=0
 
 frame_width=700
 frame_height=700
 v=None
 root= gui.Tk()
 root.geometry("700x750")
+root.configure(background="#d9d9d9")
 root.resizable(width=False,height=True)
 
 frame=ttk.Frame(root)
@@ -39,9 +41,9 @@ look_buttons.configure('num.TButton',relief='flat',font=('callbri',13,'bold'),bo
 look_buttons.map('num.TButton',foreground=[('pressed', 'black'), ('active', 'black')],
     background=[('pressed', '!disabled', '#00ffff'), ('active', '#80ffff')])
 look_sort_butt=ttk.Style()
-look_sort_butt.configure('sort.TButton',relief='flat',font=('callbri',13,'bold'),bordercolor='black',padding=0,ipading=0,foreground='black',background='#e6ffff', borderwidth=1, focusthickness=1, focuscolor='none')
+look_sort_butt.configure('sort.TButton',relief='flat',font=('callbri',13,'bold'),bordercolor='black',padding=10,ipadding=20,foreground='black',background='#e6ffff', borderwidth=1, focusthickness=1, focuscolor='none')
 look_sort_butt.map('sort.TButton',foreground=[('pressed', 'black'), ('active', 'black')],
-    background=[('pressed', '!disabled', '#00ffff'), ('active', 'red')])
+    background=[('pressed', '!disabled', '#00ffff'), ('active', '#0099ff')])
 look_text1=ttk.Style()
 look_text1.configure('text1.TRadiobutton',relief='flat',font=('callbri',20,'bold'),bordercolor='black',ipading=20,foreground='black',background='#e6ffff', borderwidth=1, focusthickness=1, focuscolor='none')
 look_text2=ttk.Style()
@@ -85,7 +87,7 @@ def run_manual():
 
 
 def run_random():
-    global en,arr,enter,frame,frame2,frame3
+    global en,arr,enter,frame,frame2,frame3,prev
     if enter==1:
         frame.destroy()
         frame2.destroy()
@@ -109,7 +111,7 @@ def run_random():
     def generate():
         r=[]
         inp=[]
-        global j
+        global j,prev
         for a in [no,first,last]:
             try:
                 inp.append(float(a.get()))
@@ -130,25 +132,38 @@ def run_random():
             pos=pos-((j-1)*10)
               
             r[i]=ttk.Label(frame2,style='text3.TLabel',text=arr[i]).grid(row=0+j,column=pos)
+        prev=arr
         butt()
         
         
-             
-    no_label=ttk.Label(frame,text='No of elements',style='text2.TLabel').grid(row=0,column=1)
-    no=ttk.Entry(frame,justify='center',width=7,style='box.TEntry',font = ('courier', 15, 'bold'))
-    no.focus()
-    no.grid(row=0,column=2)
-    
-    first_label=ttk.Label(frame,text=' First element  ',style='text2.TLabel').grid(row=1,column=1)
-    first=ttk.Entry(frame,justify='center',width=7,style='box.TEntry',font = ('courier', 15, 'bold'))
-    first.grid(row=1,column=2)
-    #no.bind("<Return>",first.set_focus)
 
-    
+    def change_focus(x):
+        x.focus()
 
-    last_label=ttk.Label(frame,text='  Last element  ',style='text2.TLabel').grid(row=2,column=1)
+
+    last_label=ttk.Label(frame,text='  Last element  ',style='text2.TLabel')
+    last_label.grid(row=2,column=1)
     last=ttk.Entry(frame,justify='center',width=7,style='box.TEntry',font = ('courier', 15, 'bold'))
     last.grid(row=2,column=2)
+
+    first_label=ttk.Label(frame,text=' First element  ',style='text2.TLabel')
+    first_label.grid(row=1,column=1)
+    first=ttk.Entry(frame,justify='center',width=7,style='box.TEntry',font = ('courier', 15, 'bold'))
+    first.grid(row=1,column=2)
+    first.bind("<KeyRelease-Return>",lambda event:change_focus(last))
+    
+
+    no_label=ttk.Label(frame,text='No of elements',style='text2.TLabel')
+    no_label.grid(row=0,column=1)
+    no=ttk.Entry(frame,justify='center',width=7,style='box.TEntry',font = ('courier', 15, 'bold'))
+    no.focus()
+    no.bind("<KeyRelease-Return>",lambda event:change_focus(first))
+    no.grid(row=0,column=2)
+    
+    
+
+    
+
     
     gen=ttk.Button(frame,text="Generate",style='num.TButton',command=generate)
     gen.grid(row=10+j+d,column=1)
@@ -160,7 +175,10 @@ b2=ttk.Radiobutton(text="Generate Random",style='text1.TRadiobutton',command=run
 
 
 def last_entry():
+    global prev,arr
+    prev=arr
     butt()
+    
 
 
 def arry_entry(i):
@@ -169,7 +187,9 @@ def arry_entry(i):
     def on_change():
         
         try:
+            #if  type(a[i-1].get()) == int or  type(a[i-1].get())==float:  
             b.append(float(a[i-1].get()))
+            
         except ValueError:
             print('error')
         if float(b[i-1])==int(b[i-1]):
@@ -180,7 +200,7 @@ def arry_entry(i):
         
 
                 
-
+    
     if en:
         a.append(None)
         a[i]=ttk.Entry(frame2,style='box.TEntry',justify='center',width=5,font = ('courier', 15, 'bold'))
@@ -194,22 +214,53 @@ def arry_entry(i):
         i+=1
         a[i-1].bind('<Return>',lambda event:on_change())
         root.bind('<KeyRelease-Return>',lambda event:arry_entry(i))
- 
 
+def output(value):
+    i=1
+    j=1
+    r=[]
+    global frame2,prev,arr
+    frame2.destroy()
+    frame2=ttk.Frame(root)
+    frame2.configure(width=frame_width,height=frame_height/3)
+    frame2.grid(row=2,columnspan=2)
 
+    output_text=ttk.Label(frame2,text="SORTED LIST:",style='text2.TLabel',foreground='red')
+    output_text.grid(row=0,column=0,columnspan=8)
+
+    for i in range(len(value)): 
+        r.append(None)     
+        pos=i+1
+        if pos/(j*10)>1:
+            j+=1
+        pos=pos-((j-1)*10)
+            
+        r[i]=ttk.Label(frame2,style='text3.TLabel',text=value[i]).grid(row=0+j,column=pos)
+    
+    arr=prev
+    print(prev)
+    butt()
+
+def buttonpress(function, *args):
+    global value
+    value = function(*args)
+    if function == s.merge_sort:
+        value=arr 
+    output(value)
 
 def butt():
-    bubble=ttk.Button(frame3,text="Bubble-Sort",style='sort.TButton',command=lambda:s.bubble_sort())
-    bubble.grid(row=1,column=1)
+    
+    bubble=ttk.Button(frame3,text="Bubble-Sort",style='sort.TButton',command=lambda:buttonpress(s.bubble_sort))
+    bubble.grid(row=1,column=1,padx=10,pady=10)
 
-    merge=ttk.Button(frame3,text="Merge-Sort",style='sort.TButton',command=lambda:s.merge_sort(arr))
-    merge.grid(row=1,column=2)
+    merge=ttk.Button(frame3,text="Merge-Sort",style='sort.TButton',command=lambda:buttonpress(s.merge_sort,arr))
+    merge.grid(row=1,column=2,padx=10,pady=10)
 
-    selection=ttk.Button(frame3,text="selection-Sort",style='sort.TButton',command=lambda:s.selection())
-    selection.grid(row=1,column=3)
+    selection=ttk.Button(frame3,text="Selection-Sort",style='sort.TButton',command=lambda:buttonpress(s.selection))
+    selection.grid(row=1,column=3,padx=10,pady=10)
 
-    insertion=ttk.Button(frame3,text="insertion-Sort",style='sort.TButton',command=lambda:s.insertion())
-    insertion.grid(row=1,column=4)
+    insertion=ttk.Button(frame3,text="Insertion-Sort",style='sort.TButton',command=lambda:buttonpress(s.insertion))
+    insertion.grid(row=1,column=4,padx=10,pady=10)
 
 s=sort(arr)
 gui.mainloop()
